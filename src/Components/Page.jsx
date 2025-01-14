@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import "../styles/Page.css"
 
-function Card({ name, sprite }){
-    return (
-        <div className="card">
-            <img src={sprite} height={150} width={150}/>
-            <h3>{name}</h3>
-        </div>
-    )
-}
-
 function Page() {
+    function Card({ name, sprite }){
+        const clickDiv = () => {
+            const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
+            setPokemonList(Shuffled)
+        }
+        return (
+            <div className="card" onClick={clickDiv} >
+                <img src={sprite} height={150} width={150}/>
+                <h3>{name}</h3>
+            </div>
+        )
+    }
     const [PokemonList, setPokemonList] = useState([])
 
     useEffect(() => {
