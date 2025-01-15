@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import "../styles/Page.css"
 
 function Page() {
+    const [resetButton, reset] = useState(true)
+    const [selectedPokemon, addPokemon] = useState([])
     function Card({ name, sprite }){
-        const clickDiv = () => {
+        const clickDiv = ({ name }) => {
             const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
             setPokemonList(Shuffled)
         }
         return (
-            <div className="card" onClick={clickDiv} >
+            <div className="card" onClick={clickDiv(name)} >
                 <img src={sprite} height={150} width={150}/>
                 <h3>{name}</h3>
             </div>
@@ -26,7 +28,7 @@ function Page() {
             if (fetchedPokemon.some(p => p.name === PokeData.name)){
                 continue
             }
-            fetchedPokemon.push({name: PokeData.name, sprite:PokeData.sprites.front_default})
+            fetchedPokemon.push({name: PokeData.name.toUpperCase(), sprite:PokeData.sprites.front_default})
         }
         setPokemonList(fetchedPokemon)
     }
@@ -34,14 +36,25 @@ function Page() {
         return () => {
             setPokemonList([])
         };
-    }, [])
+    }, [resetButton])
+
+    const clickReset = () => {
+        reset(!resetButton)
+    }
 
     return (
+        <>
         <div className="page">
             {PokemonList.map((pokemon, index) => (
-                <Card key={index} name={pokemon.name} sprite={pokemon.sprite} />
+                <Card key={pokemon.name} name={pokemon.name} sprite={pokemon.sprite} />
             ))}
         </div>
+        <div className="right">
+            <h3>Top Score: </h3>
+            <h3>Current Score: </h3>
+            <button onClick={clickReset}>Reset</button>
+        </div>
+        </>
     )
 }
 
