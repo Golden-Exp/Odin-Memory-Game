@@ -4,13 +4,26 @@ import "../styles/Page.css"
 function Page() {
     const [resetButton, reset] = useState(true)
     const [selectedPokemon, addPokemon] = useState([])
-    function Card({ name, sprite }){
-        const clickDiv = ({ name }) => {
-            const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
-            setPokemonList(Shuffled)
+    const [score, setScore] = useState(0)
+    const [topScore, setTopScore] = useState(0)
+    const clickDiv = (name) => {
+        console.log(selectedPokemon)
+        const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
+        setPokemonList(Shuffled)
+        if (selectedPokemon.some(p => p === name)){
+            setTopScore(Math.max(score, topScore))
+            setScore(0)
+            addPokemon([])
+            reset(!resetButton)
         }
+        else {
+            addPokemon([...selectedPokemon, name])
+            setScore(score + 1)
+        }
+    }
+    function Card({ name, sprite }){
         return (
-            <div className="card" onClick={clickDiv(name)} >
+            <div className="card" onClick={() => clickDiv(name)} >
                 <img src={sprite} height={150} width={150}/>
                 <h3>{name}</h3>
             </div>
@@ -50,8 +63,8 @@ function Page() {
             ))}
         </div>
         <div className="right">
-            <h3>Top Score: </h3>
-            <h3>Current Score: </h3>
+            <h3>Top Score: {topScore}</h3>
+            <h3>Current Score: {score}</h3>
             <button onClick={clickReset}>Reset</button>
         </div>
         </>
