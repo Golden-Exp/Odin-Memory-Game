@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(rgba(255,0,255,.5), rgba(255,255,0,.5)), url("./assets/pokeball.jpg");
+  background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("./assets/pokeball.jpg");
   background-size: cover;
   font-synthesis: none;
   text-rendering: optimizeLegibility;

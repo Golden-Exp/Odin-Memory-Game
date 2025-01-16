@@ -7,11 +7,12 @@
   gap: 10rem;
 }
 
-.right > h3 {
+.right > h2 {
   color: black;
+  font-size: 25px;
 }
 
 .right {
-  padding: 100px;
+  padding: 70px;
   width: 40%;
 }

@@ -7,16 +7,20 @@ function Page() {
     const [score, setScore] = useState(0)
     const [topScore, setTopScore] = useState(0)
     const [loading, setLoading] = useState(true)
+    const [isPopUp, setPopUp] = useState(false)
+    const [status, setStatus] = useState("")
     const clickDiv = (name) => {
-        console.log(selectedPokemon)
         const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
         setPokemonList(Shuffled)
         if (selectedPokemon.some(p => p === name)){
             setTopScore(Math.max(score, topScore))
-            setScore(0)
-            addPokemon([])
-            reset(!resetButton)
-            setLoading(true)
+            setStatus("lost")
+            setPopUp(true)
+        }
+        else if (selectedPokemon.length === 11) {
+            setTopScore(12)
+            setStatus("won")
+            setPopUp(true)
         }
         else {
             addPokemon([...selectedPokemon, name])
@@ -69,16 +73,33 @@ function Page() {
         )
     }
 
+    const clickPopup = () => {
+        reset(!resetButton)
+        setLoading(true)
+        setScore(0)
+        addPokemon([])
+        setPopUp(false)
+    }
+
     return (
         <>
+        {isPopUp && (
+            <div className="popup">
+                <div className="window" >
+                    <h1>You {status}!!</h1>
+                    <h2>Score: {score}</h2>
+                    <button onClick={clickPopup} >Reset</button>
+                </div>
+            </div>
+        )}
         <div className="page">
             {PokemonList.map((pokemon, index) => (
                 <Card key={pokemon.name} name={pokemon.name} sprite={pokemon.sprite} />
             ))}
         </div>
         <div className="right">
-            <h3>Top Score: {topScore}</h3>
-            <h3>Current Score: {score}</h3>
+            <h2>Top Score: {topScore}</h2>
+            <h2>Current Score: {score}</h2>
             <button onClick={clickReset}>Reset</button>
         </div>
         </>

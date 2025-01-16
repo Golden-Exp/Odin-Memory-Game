@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Pokemon;
+    src: url(../assets/Solid.ttf);
+}
 .page {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -9,5 +13,38 @@
     cursor: pointer;
     border: solid 2px white;
     padding: 20px;
+    color: black;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.popup {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup > .window {
+    height: 40%;
+    width: 40%;
+    background-color: wheat;
+    border-radius: 3%;
+}
+
+h2 {
+    color: black;
+}
+
+h1 {
+    font-family: Pokemon;
+    color: #FFCC01;
+    -webkit-text-stroke-color:  #385CA9;
+    -webkit-text-stroke-width: 7px;
+    margin-top: 20px;
+    font-size: 100px;
 }
