@@ -6,6 +6,7 @@ function Page() {
     const [selectedPokemon, addPokemon] = useState([])
     const [score, setScore] = useState(0)
     const [topScore, setTopScore] = useState(0)
+    const [loading, setLoading] = useState(true)
     const clickDiv = (name) => {
         console.log(selectedPokemon)
         const Shuffled = [...PokemonList].sort( () => Math.random() - 0.5 )
@@ -15,6 +16,7 @@ function Page() {
             setScore(0)
             addPokemon([])
             reset(!resetButton)
+            setLoading(true)
         }
         else {
             addPokemon([...selectedPokemon, name])
@@ -44,6 +46,7 @@ function Page() {
             fetchedPokemon.push({name: PokeData.name.toUpperCase(), sprite:PokeData.sprites.front_default})
         }
         setPokemonList(fetchedPokemon)
+        setLoading(false)
     }
         func()
         return () => {
@@ -53,6 +56,17 @@ function Page() {
 
     const clickReset = () => {
         reset(!resetButton)
+        setLoading(true)
+        setPokemonList([])
+        addPokemon([])
+    }
+
+    if (loading) {
+        return (
+        <div className="Loading" >
+            <img src="/pokeball.png" height={100} width={100} />
+        </div>
+        )
     }
 
     return (
