@@ -30,7 +30,7 @@ function Page() {
     function Card({ name, sprite }){
         return (
             <div className="card" onClick={() => clickDiv(name)} >
-                <img src={sprite} height={150} width={150}/>
+                <img src={sprite} />
                 <h3>{name}</h3>
             </div>
         )
@@ -41,13 +41,13 @@ function Page() {
         async function func(){
         const fetchedPokemon = []
         while(fetchedPokemon.length < 12){
-            const num = Math.floor(Math.random()* 1024) + 1;
+            const num = Math.floor(Math.random()* 800) + 1;
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`);
             const PokeData = await response.json();
             if (fetchedPokemon.some(p => p.name === PokeData.name)){
                 continue
             }
-            fetchedPokemon.push({name: PokeData.name.toUpperCase(), sprite:PokeData.sprites.front_default})
+            fetchedPokemon.push({name: PokeData.name.toUpperCase(), sprite:PokeData.sprites.other.showdown.front_default})
         }
         setPokemonList(fetchedPokemon)
         setLoading(false)
