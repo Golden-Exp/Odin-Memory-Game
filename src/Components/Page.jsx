@@ -19,6 +19,7 @@ function Page() {
         }
         else if (selectedPokemon.length === 11) {
             setTopScore(12)
+            setScore(score + 1)
             setStatus("won")
             setPopUp(true)
         }
